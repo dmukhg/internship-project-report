@@ -1,0 +1,29 @@
+% Author : Dipanjan Mukherjee
+
+\documentclass[11pt,a4paper]{report}
+\usepackage[pdftex]{graphicx}
+\usepackage{url}
+\usepackage[dvips,
+            bookmarks,
+            colorlinks=false,
+            pdfborder={0 0 0},
+            pdftitle={Web Data Analysis Tool : Dipanjan Mukherjee,2012},
+            pdfauthor={Dipanjan Mukherjee},
+            pdfsubject={Internship Project Report}]{hyperref}
+
+\begin{document}
+% include other pages
+\input{./src/cover.tex}
+\input{./src/abstract.tex}
+
+\pagenumbering{roman}
+
+\tableofcontents
+\listoffigures
+
+\newpage
+\pagenumbering{arabic}
+
+\input{./src/introduction.tex}
+
+\end{document}
