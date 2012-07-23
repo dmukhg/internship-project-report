@@ -1,3 +1,41 @@
 \chapter{Introduction}
 
-This is the introduction.
+\section{Requirements for WDAT}
+
+The Web Data Analysis Tool, commonly referred to, in this report as
+WDAT had three broad areas of functionality to deal with: 
+
+\subsection{Browse Data}
+
+Data on the g-node servers is stored via a common set of objects
+for dealing with electrophysiological data.  It is based on the
+\htmladdnormallinkfoot{NEO}{http://neuralensemble.org/trac/neo} Data
+Object Model.  The Neo approach provides common names and concepts to
+deal with electrophysiological data in an easy and well-structured
+manner.  The NEO model is used because it is already used in major
+neuroscientific projects and is also open enough to allow cooperataion
+with other initiatives.
+
+For WDAT, browsing data allowed the user to first select what kind of
+container-element to browse by.  Container-elements are somewhat
+similar to file-folders in a computer application, in that they
+contain other container as well as data objects.  Containers are
+shown in a tree-view.  Selecting a node or even a branch in this tree
+shows all the non-container elements that are mapped to this container
+element.  These non-container elements are called 'Data Objects' because
+these are the actual experimental data which may be plotted on to a
+canvas ( discussed later ).
+
+So, for the Data Browsing component, there were three submodules
+involved: the object tree, the data-object list, and a so called
+selection-basket.
+
+\subsection{View/Plot Data}
+
+Plot Data
+
+\subsection{Managing MetaData}
+
+Manage metadata
+
+
