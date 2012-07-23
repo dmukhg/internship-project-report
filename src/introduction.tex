@@ -53,6 +53,28 @@ maneuvre through the entire time-series.
 
 \subsection{Managing MetaData}
 
-Manage metadata
+Simply storing data derived from the experiment is not enough.  One
+also requires to store the conditions of the experiment in reasonable
+detail to be able to reproduce the results at a later point in time.
+This is where MetaData steps in.  MetaData on the G-Node servers is
+maintained via an API derived from the odMl (open metadata Markup
+    Language) specification available at
+\htmladdnormallinkfoot{www.g-node.org}{http://www.g-node.org/projects/odml}.
+
+For the metadata panel, it was required that there be convenient and
+non-obstrusive means to view and edit metadata.  Also, there would be
+easy means to connect metadata to selections made in the browse-panel.
 
 
+\section{Implementation and delineation of the panels}
+
+There was a clear purpose to each of the various panels vis-a-vis
+data-explorer, data-visualization and metadata-management.  After some
+discussion, it was decided that there is no overlap between these
+panels and hence, it is best to separate them visually via tabs.  Tabs
+were chosen because they reflect the state of the application and
+allow the user to switch beween interfaces naturally.  Since there is
+no way to know which of the three panels the user may wish to view at
+any time, a wizard-like sequence of panels was out of the question.
+
+The tabs were individually labelled 'explorer', 'plot' and 'metadata'
