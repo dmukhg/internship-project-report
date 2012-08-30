@@ -1,0 +1,127 @@
+\chapter{The Build Processes}
+
+The build process is mostly automated and utilizes the GNU make build
+tool. A cursory glance at the Makefile located in the 'wdat' directory
+will tell you all that there is to know but is also documented in this
+report for completeness's sake.
+
+\section{Variables}
+
+\begin{description}
+
+  \item[JS\_COMPILER] \hfill \\
+  This defaults to uglify-js which is a node-js tool that minifies javascript files.
+
+  \item[WIDGET\_FILES] \hfill \\ 
+  This a space-separated-list of all files that are written as widgets
+  and are therefore to be in memory before they are used.  (This
+  sequential loading of components is managed by the build process
+  as will be examined later)
+
+  \item[SUBMODULE\_FILES] \hfill \\
+  A similar space-separated-list of all files that are submodules and
+  are invoked within the definitions of modules.  Submodules, upon
+  invocation, return objects that are used within modules to operate
+  upon them. 
+
+  \item[JS\_FILES] \hfill \\
+  This is the main compilation unit.  The order of files and variables
+  within this variable is what infulences loading order within the
+  browser.
+
+  \item[CSS\_FILES] \hfill \\
+  This the compilation unit for css files. The loading order for css
+  is not really as important as the javascript equivalent. But the
+  developer must still be aware of cascade rules in css such that
+  results are exactly as expected.
+\end{description}
+
+
+\section{Build Process}
+
+\subsection{Concatenation}
+
+The compilation units are individually concatenated, while preserving
+file-order, into single files. The concatenated CSS file is processed
+further.  The concatenated file stays as 'wdat.prep.css'.
+
+\subsection{Minification}
+
+For smaller footprint, the generated js file 'wdat.js' is minified
+using
+\htmladdnormallinkfoot{UglifyJS}{http://github.com/mishoo/uglifyjs}.
+As of now, there is no minification for the css file.
+
+\subsection{Compilation}
+
+The Cascading Style Sheets use the
+\htmladdnormallinkfoot{LESS}{http://lesscss.org/} extensions for css
+and hence must be compiled to browser compatible css before proceeding
+further.  This compiled unit is called 'wdat.css'.
+
+\section{Usage}
+
+Make usage follows common conventions prevalent in the open-source
+domain.
+
+\subsection{Building non-minified scripts}
+
+\lstset{language=sh, tabsize=4}
+  \begin{tikzpicture}
+    \node [fill=codebgcolor, rounded corners=5pt]
+{{
+  \begin{tabular}{l}
+  \begin{lstlisting}
+  make
+  \end{lstlisting}
+  \end{tabular}
+}};
+\end{tikzpicture}
+
+This creates the wdat.js and wdat.css files.  Note, this doesn't cause
+any minification.
+
+\subsection{Building minified scripts}
+
+\lstset{language=sh, tabsize=4}
+  \begin{tikzpicture}
+    \node [fill=codebgcolor, rounded corners=5pt]
+{{
+  \begin{tabular}{l}
+  \begin{lstlisting}
+  make wdat.min.js
+  \end{lstlisting}
+  \end{tabular}
+}};
+\end{tikzpicture}
+
+This builds wdat.min.js only.  It first creates the wdat.js file and
+then passes it through UglifyJS to create the minified javascript
+file.  A minified javascript file is perfectly fine to execute on a
+browser.  It uses the same global namespace as the original js file.
+Only, unneeded characters like carriage-return and spaces are removed
+and the functions renamed to shorter names.
+
+\subsection{Building the CSS files}
+
+\lstset{language=sh, tabsize=4}
+  \begin{tikzpicture}
+    \node [fill=codebgcolor, rounded corners=5pt]
+{{
+  \begin{tabular}{l}
+  \begin{lstlisting}
+  make wdat.css
+  \end{lstlisting}
+  \end{tabular}
+}};
+\end{tikzpicture}
+
+This creates the less-compiled version of the wdat.css styles.
+
+
+\section{Additional notes}
+
+The make process doesn't require user input and can be invoked
+programmatically or via hooks (in the case of deployments).  This
+makes the application capable of building itself when a new release is
+pushed onto the servers.
