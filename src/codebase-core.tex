@@ -44,8 +44,7 @@ or for type-checking.
 \begin{figure}[h!t]
   \centering
   \includegraphics[width=\textwidth]{src/images/DatastoreAndEventBus.pdf}
-  \caption[EventBus + Datastore]{How the event bus is used for making asynchronous network
-    requests without hurting readability and modularity of the code}
+  \caption{How the event bus is used for making asynchronous network requests without hurting readability and modularity of the code.}
 \end{figure}
 
 \section{datastore.js}
@@ -67,8 +66,9 @@ provides a unique id to the request, say uid.  Now this is a
 non-blocking call and the program proceeds without the UI hanging.
 When the request has been completed and the object received from the
 servers, it is parsed into a javascript object and an event
-'ReceivedData\_<<uid>>' is fired with this javascript object being
-appended to the event as a parameter.
+'ReceivedData\textunderscore\textless\textless<uid>>\textgreater\textgreater'
+is fired with this javascript object being appended to the event as a
+parameter.
 
 Any functions that are subscribed to this event are notified and they
 begin executing upon this particular data.
