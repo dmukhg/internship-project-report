@@ -1,0 +1,66 @@
+\chapter{Codebase: The core}
+
+The first part of the codebase that one would want to look at is the
+core.  This is located at ./src/core.  Code contained in this
+directory initializes the WDAT object and provides the utiilities and
+major components that will be utilized through out the lifetime of
+WDAT in the browser memory.
+
+
+\subsection{core.js}
+
+Defines the 'wdat' object as a global property of the window object.
+This allows one to refer to the 'wdat' object as simply wdat from
+within any scope.
+
+\subsection{config.js}
+
+Defines the 'wdat.v' object which contains values that will be used
+throughout the application.  It provides a singular point of entry for
+all the configuration directives for this application.
+
+\subsubsection{Notable directives}
+
+wdat.v.l: contains layout dimensions, fractions and page width/height.
+
+wdat.v.u: contains url resource endpoints for login, logout etc.
+
+wdat.v.m: contains miscellaneous directives.
+
+\subsection{bootstrap.js}
+
+Defines a wdat.init() function and calls it.
+
+wdat.init creates the primary divisions to introduce widgets into. It
+also introduces some functions that should be a part of the javascript
+library but aren't.  These functions are for primary string operations
+or for type-checking.
+
+
+\subsection{datastore.js}
+
+The datastore is an integral part of the wdat application.  It is an
+abstraction layer for fetching data from the servers and also does
+some trivial caching in the realm of the application.  
+
+The datastore exposes common methods to access metadata objects, data
+objects and datafiles.  
+
+Network connectivity in a browser environment is best managed
+asynchronously.  To implement the datastore in an async manner without
+making use of nested anonymous functions, some pretty interesting
+patterns are used.
+
+When the calling program requests some data to be downloaded, it also
+provides a unique id to the request, say uid.  Now this is a
+non-blocking call and the program proceeds without the UI hanging.
+When the request has been completed and the object received from the
+servers, it is parsed into a javascript object and an event
+'ReceivedData\_<<uid>>' is fired with this javascript object being
+appended to the event as a parameter.
+
+Any functions that are subscribed to this event are notified and they
+begin executing upon this particular data.
+
+Note: caching is already provided by the browser but that is still on
+a network connectivity level.
